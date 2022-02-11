@@ -1,3 +1,4 @@
+import {Stack} from '@mui/material'
 import React, { FC, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -18,11 +19,13 @@ export const Episode: FC<EpisodePropsType> = memo(
           navigate(`episode/${id}`)
         }}
       >
-        <div>
-          <span>{episode}</span>
-          <span>{name}</span>
-          <span>{air_date}</span>
-        </div>
+
+          <Stack direction="row" spacing={2}>
+              <span>{episode}</span>
+              <span>{name}</span>
+              <span>{air_date}</span>
+          </Stack>
+
       </div>
     )
   }

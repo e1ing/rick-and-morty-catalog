@@ -7,13 +7,13 @@ export type EpisodeType = {
   name: string
   air_date: string
   episode: string
+  characters: Array<string>
 }
 
 const initialState: Array<EpisodeType> = []
 
 type EpisodesActionsType =
   | ReturnType<typeof setEpisodesAC>
-  | ReturnType<typeof setSingleEpisodeAC>
   | SetErrorAT
   | SetStatusAT
 
@@ -32,8 +32,6 @@ export const episodesReducer = (
 // action creators
 export const setEpisodesAC = (episodes: Array<EpisodeType>) =>
   ({ type: 'SET-EPISODES', episodes } as const)
-export const setSingleEpisodeAC = (episode: EpisodeType) =>
-  ({ type: 'SET-SINGLE-EPISODE', episode } as const)
 
 // thunk creators
 export const fetchEpisodesTC = () => {
@@ -41,16 +39,6 @@ export const fetchEpisodesTC = () => {
     dispatch(setStatusAC('loading'))
     rickAndMortyApi.getEpisodes().then((res) => {
       dispatch(setEpisodesAC(res.data.results))
-      dispatch(setStatusAC('succeeded'))
-    })
-  }
-}
-
-export const fetchSingleEpisodeTC = (episode_id: number) => {
-  return (dispatch: Dispatch<EpisodesActionsType>) => {
-    dispatch(setStatusAC('loading'))
-    rickAndMortyApi.getSingleEpisode(episode_id).then((res) => {
-      dispatch(setSingleEpisodeAC(res.data))
       dispatch(setStatusAC('succeeded'))
     })
   }

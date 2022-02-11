@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { EpisodeType, fetchEpisodesTC } from '../dal/episodes-reducer'
 import { Episode } from './Episode'
 import { AppRootStateType } from '../dal/store'
+import {Paper, Stack} from "@mui/material";
 
 export const Episodes = memo(() => {
   const dispatch = useDispatch()
@@ -13,10 +14,11 @@ export const Episodes = memo(() => {
   useEffect(() => {
     dispatch(fetchEpisodesTC())
   }, [])
-
+//
   return (
-    <div>
+    <Stack spacing={2}>
       {episodes.map((ep) => (
+          <Paper style={{padding: '10px'}}>
         <Episode
           key={ep.id}
           id={ep.id}
@@ -24,8 +26,9 @@ export const Episodes = memo(() => {
           name={ep.name}
           air_date={ep.air_date}
         />
+          </Paper>
       ))}
-    </div>
+    </Stack>
   )
 })
 

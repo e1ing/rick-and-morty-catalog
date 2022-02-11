@@ -1,0 +1,21 @@
+import React from 'react'
+import {Routes, Route} from 'react-router-dom';
+import {EpisodePage} from '../Episodes/EpisodePage';
+import { Error404 } from './Error404';
+
+export const PATH = {
+    EPISODE: '/episode',
+    CHARACTER: '/character',
+    LOCATION: '/location',
+    ERROR_404: "/404",
+}
+export const RoutesComponent = () => {
+    return (
+        <div>
+                <Routes>
+                    <Route path={PATH.EPISODE + `/id`} element={<EpisodePage/>}/>
+                    <Route path={PATH.ERROR_404} element={<Error404/>}/>
+                </Routes>
+        </div>
+    )
+}
