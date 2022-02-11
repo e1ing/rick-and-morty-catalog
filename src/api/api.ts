@@ -1,17 +1,46 @@
 import axios from 'axios'
 
 const settings = {
-  withCredentials: true,
+  //withCredentials: true,
   headers: {},
 }
 
 const instance = axios.create({
-  baseURL: 'ttps://rickandmortyapi.com/api/',
+  baseURL: 'https://rickandmortyapi.com/api/',
   ...settings,
 })
-
 //types
-export type EpisodeType = {
+export type GetEpisodeResponseType = {
+  info: {
+    count: number
+    pages: number
+    next: string
+    prev: string | null
+  }
+  results: Array<EpisodeAPIType>
+}
+
+export type GetCharactersResponseType = {
+  info: {
+    count: number
+    pages: number
+    next: string
+    prev: string | null
+  }
+  results: Array<CharacterAPIType>
+}
+
+export type GetLocationsResponseType = {
+  info: {
+    count: number
+    pages: number
+    next: string
+    prev: string | null
+  }
+  results: Array<LocationAPIType>
+}
+
+export type EpisodeAPIType = {
   id: number
   name: string
   air_date: string
@@ -21,7 +50,7 @@ export type EpisodeType = {
   created: string
 }
 
-type LocationType = {
+type LocationAPIType = {
   id: number
   name: string
   type: string
@@ -30,7 +59,7 @@ type LocationType = {
   url: string
   created: string
 }
-type CharacterType = {
+type CharacterAPIType = {
   id: number
   name: string
   status: string
@@ -54,34 +83,36 @@ type CharacterType = {
 export const rickAndMortyApi = {
   // episodes
   getEpisodes() {
-    return instance.get<Array<EpisodeType>>(`episode`)
+    return instance.get<GetEpisodeResponseType>(`episode`)
   },
-  getEpisode(id: number) {
-    return instance.get<EpisodeType>(`episode/?id=${id}`)
+  getSingleEpisode(id: number) {
+    return instance.get<EpisodeAPIType>(`episode/?id=${id}`)
   },
   getMultipleEpisodes(episodes_id: Array<number>) {
-    return instance.get<EpisodeType[]>(`episode/?[]=${episodes_id}`)
+    return instance.get<Array<EpisodeAPIType>>(`episode/?[]=${episodes_id}`)
   },
 
   // characters
   getCharacters() {
-    return instance.get<Array<CharacterType>>(`character`)
+    return instance.get<GetCharactersResponseType>(`character`)
   },
   getSingleCharacter(id: number) {
-    return instance.get<CharacterType>(`character/?id=${id}`)
+    return instance.get<CharacterAPIType>(`character/?id=${id}`)
   },
   getMultipleCharacter(characters_id: Array<number>) {
-    return instance.get<Array<CharacterType>>(`character/?[]=${characters_id}`)
+    return instance.get<Array<CharacterAPIType>>(
+      `character/?[]=${characters_id}`
+    )
   },
 
   //locations
   getLocations() {
-    return instance.get<Array<LocationType>>(`location`)
+    return instance.get<GetLocationsResponseType>(`location`)
   },
   getSingleLocation(id: number) {
-    return instance.get<LocationType>(`location/?id=${id}`)
+    return instance.get<LocationAPIType>(`location/?id=${id}`)
   },
   getMultipleLocations(locations_id: Array<number>) {
-    return instance.get<Array<LocationType>>(`location/?[]=${locations_id}`)
+    return instance.get<Array<LocationAPIType>>(`location/?[]=${locations_id}`)
   },
 }
