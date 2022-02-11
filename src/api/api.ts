@@ -11,7 +11,7 @@ const instance = axios.create({
 })
 
 //types
-type EpisodeType = {
+export type EpisodeType = {
   id: number
   name: string
   air_date: string
