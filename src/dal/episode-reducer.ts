@@ -15,7 +15,7 @@ const initialState: EpisodeType = {
   name: "",
   air_date: "",
   episode: "",
-  characters: [""]
+  characters: []
 }
 
 type EpisodesActionsType =

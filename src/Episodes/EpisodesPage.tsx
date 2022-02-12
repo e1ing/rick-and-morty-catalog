@@ -18,9 +18,8 @@ export const EpisodesPage = memo(() => {
     return (
         <Stack spacing={2}>
             {episodes.map((ep) => (
-                <Paper style={{padding: '10px'}}>
+                <Paper key={ep.id} style={{padding: '10px'}}>
                     <Episode
-                        key={ep.id}
                         id={ep.id}
                         episode={ep.episode}
                         name={ep.name}

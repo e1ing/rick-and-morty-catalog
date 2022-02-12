@@ -3,6 +3,7 @@ import {Dispatch} from 'redux'
 import {SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
 
 export type CharacterType = {
+    id: number|null
     name: string
     status: string
     species: string
@@ -14,9 +15,11 @@ export type CharacterType = {
     location: {
         name: string
     }
+    image: string
 }
 
 const initialState: CharacterType = {
+    id: null,
     name: "",
     status: "",
     species: "",
@@ -27,7 +30,8 @@ const initialState: CharacterType = {
     },
     location: {
         name: ""
-    }
+    },
+    image: ""
 }
 
 type CharacterActionsType =

@@ -101,7 +101,7 @@ export const rickAndMortyApi = {
   },
   getMultipleCharacter(characters_id: Array<number>) {
     return instance.get<Array<CharacterAPIType>>(
-      `character/?[]=${characters_id}`
+      `character/${characters_id}`
     )
   },
 
