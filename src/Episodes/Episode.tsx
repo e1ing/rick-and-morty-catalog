@@ -30,4 +30,3 @@ export const Episode: FC<EpisodePropsType> = memo(
   }
 )
 
-Episode.displayName = 'Episode'

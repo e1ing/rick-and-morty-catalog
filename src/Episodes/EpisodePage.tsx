@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import {fetchSingleEpisodeTC} from "../dal/episode-reducer";
 import {CharacterType} from "../dal/character-reducer";
 import {fetchMultipleCharactersTC} from "../dal/characters-reducer";
+import {Character} from "./Character";
 
 export const EpisodePage: FC = () => {
     console.log("episodePage")
@@ -49,8 +50,7 @@ export const EpisodePage: FC = () => {
             <Stack spacing={2}>
                 {characters.map((ch) => (
                     <Paper key={ch.id} style={{padding: '10px'}}>
-                        <img src = {ch.image}/>
-                        <p style={{fontSize: '20px'}}>{ch.name}</p>
+                        <Character  name={ch.name} image={ch.image}/>
                     </Paper>
                 ))}
             </Stack>
