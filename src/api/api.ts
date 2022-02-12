@@ -89,7 +89,7 @@ export const rickAndMortyApi = {
     return instance.get<EpisodeAPIType>(`episode/${id}`)
   },
   getMultipleEpisodes(episodes_id: Array<number>) {
-    return instance.get<Array<EpisodeAPIType>>(`episode/?[]=${episodes_id}`)
+    return instance.get<Array<EpisodeAPIType>>(`episode/${episodes_id}`)
   },
 
   // characters
@@ -110,7 +110,7 @@ export const rickAndMortyApi = {
     return instance.get<GetLocationsResponseType>(`location`)
   },
   getSingleLocation(id: number) {
-    return instance.get<LocationAPIType>(`location/?id=${id}`)
+    return instance.get<LocationAPIType>(`location/${id}`)
   },
   getMultipleLocations(locations_id: Array<number>) {
     return instance.get<Array<LocationAPIType>>(`location/?[]=${locations_id}`)

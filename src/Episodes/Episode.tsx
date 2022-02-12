@@ -10,7 +10,7 @@ export type EpisodePropsType = {
 }
 
 export const Episode: FC<EpisodePropsType> = memo(
-  ({ id, episode, name, air_date }) => {
+  ({id, episode, name, air_date}) => {
     const navigate = useNavigate()
     return (
       <div

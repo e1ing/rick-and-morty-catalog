@@ -6,7 +6,6 @@ import {AppRootStateType} from '../dal/store'
 import Grid from '@mui/material/Grid'
 import {LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from '../components/ErrorSnackbar'
-import {RoutesComponent} from "../components/RoutesComponent";
 
 export const App = () => {
     const status = useSelector<AppRootStateType, RequestStatusType>(
@@ -16,7 +15,7 @@ export const App = () => {
         <>
             {status === 'loading' && <LinearProgress/>}
             <ErrorSnackbar/>
-            <h1 style={{textAlign: "center"}}> Rick and Morty</h1>
+            <h1 style={{textAlign: "center"}}> Rick and Morty app</h1>
             <Grid container style={{padding: '20px'}}>
                {/* <Search value={} placeholder={} onChange={}/>*/}
             </Grid>

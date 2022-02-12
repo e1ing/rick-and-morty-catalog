@@ -3,7 +3,7 @@ import React, {FC, memo} from 'react'
 import {useNavigate} from 'react-router-dom'
 
 export type CharacterPropsType = {
-    id?: number
+    id: number|null
     name: string
     image: string
 }
@@ -15,7 +15,7 @@ export const Character: FC<CharacterPropsType> = memo(
             <div
                 style={{cursor: 'pointer'}}
                 onClick={() => {
-                    navigate(`character/${id}`)
+                    navigate(`/character/${id}`)
                 }}
             >
                 <Stack spacing={2}>

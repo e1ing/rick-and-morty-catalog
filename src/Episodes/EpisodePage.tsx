@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react'
+import React, {FC, memo, useEffect} from 'react'
 import {Paper, Stack} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../dal/store";
@@ -6,10 +6,9 @@ import {useParams} from "react-router-dom";
 import {fetchSingleEpisodeTC} from "../dal/episode-reducer";
 import {CharacterType} from "../dal/character-reducer";
 import {fetchMultipleCharactersTC} from "../dal/characters-reducer";
-import {Character} from "./Character";
+import {Character} from "../Characters/Character";
 
-export const EpisodePage: FC = () => {
-    console.log("episodePage")
+export const EpisodePage: FC =memo( () => {
     const {id} = useParams();
     const dispatch = useDispatch()
 
@@ -50,11 +49,11 @@ export const EpisodePage: FC = () => {
             <Stack spacing={2}>
                 {characters.map((ch) => (
                     <Paper key={ch.id} style={{padding: '10px'}}>
-                        <Character  name={ch.name} image={ch.image}/>
+                        <Character id={ch.id} name={ch.name} image={ch.image}/>
                     </Paper>
                 ))}
             </Stack>
         </>
     )
 
-}
+})

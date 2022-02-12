@@ -14,7 +14,9 @@ export type CharacterType = {
     }
     location: {
         name: string
+        url: string
     }
+    episode: Array<string>
     image: string
 }
 
@@ -29,38 +31,36 @@ const initialState: CharacterType = {
         name: ""
     },
     location: {
-        name: ""
+        name: "",
+        url: ""
     },
+    episode: [],
     image: ""
 }
 
 type CharacterActionsType =
-    | ReturnType<typeof setCharacterAC>
+    | ReturnType<typeof setSingleCharacterAC>
     | SetErrorAT
     | SetStatusAT
 
-export const characterReducer = (
-    state: CharacterType = initialState,
-    action: CharacterActionsType
-): CharacterType => {
+export const characterReducer = (state: CharacterType = initialState,action: CharacterActionsType): CharacterType => {
     switch (action.type) {
-        case 'SET-CHARACTER':
-            action.character
+        case 'SET-SINGLE-CHARACTER':
+           return action.character
         default:
             return state
     }
 }
 
 // action creators
-export const setCharacterAC = (character: CharacterType) =>
-    ({type: 'SET-CHARACTER', character} as const)
+const setSingleCharacterAC = (character: CharacterType) =>({type: 'SET-SINGLE-CHARACTER', character} as const)
 
 // thunk creators
-export const fetchCharacterTC = (id: number) => {
+export const fetchSingleCharacterTC = (id: number) => {
     return (dispatch: Dispatch<CharacterActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getSingleCharacter(id).then((res) => {
-            dispatch(setCharacterAC(res.data))
+            dispatch(setSingleCharacterAC(res.data))
             dispatch(setStatusAC('succeeded'))
         })
     }
