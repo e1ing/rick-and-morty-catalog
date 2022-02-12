@@ -3,6 +3,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, {AlertProps} from '@mui/material/Alert';
 import {useDispatch, useSelector} from 'react-redux';
 import { AppRootStateType } from '../dal/store';
+import { setErrorAC } from '../dal/app-reducer';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -12,7 +13,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export function ErrorSnackbar() {
-    /*const [open, setOpen] = React.useState(false);*/
     const error = useSelector<AppRootStateType, string | null>(state => state.app.error)
     const dispatch = useDispatch()
 
@@ -33,8 +33,4 @@ export function ErrorSnackbar() {
         </Snackbar>
 
     );
-}
-
-function setErrorAC(arg0: null): any {
-    throw new Error('Function not implemented.');
 }

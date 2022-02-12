@@ -86,7 +86,7 @@ export const rickAndMortyApi = {
     return instance.get<GetEpisodeResponseType>(`episode`)
   },
   getSingleEpisode(id: number) {
-    return instance.get<EpisodeAPIType>(`episode/?id=${id}`)
+    return instance.get<EpisodeAPIType>(`episode/${id}`)
   },
   getMultipleEpisodes(episodes_id: Array<number>) {
     return instance.get<Array<EpisodeAPIType>>(`episode/?[]=${episodes_id}`)
@@ -97,7 +97,7 @@ export const rickAndMortyApi = {
     return instance.get<GetCharactersResponseType>(`character`)
   },
   getSingleCharacter(id: number) {
-    return instance.get<CharacterAPIType>(`character/?id=${id}`)
+    return instance.get<CharacterAPIType>(`character/${id}`)
   },
   getMultipleCharacter(characters_id: Array<number>) {
     return instance.get<Array<CharacterAPIType>>(

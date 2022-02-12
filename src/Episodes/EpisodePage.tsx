@@ -1,28 +1,17 @@
 import React, {FC, useEffect} from 'react'
-import {Stack} from "@mui/material";
+import {Grid, Paper, Stack} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../dal/store";
 import {useParams} from "react-router-dom";
 import {fetchSingleEpisodeTC} from "../dal/episode-reducer";
 
-/*
-type EpisodePagePropsType = {
-    id: number
-    name: string
-    air_date: string
-    episode: string
-    characters: Array<string>
-    url?: string
-    created?: string
-}
-*/
-
 export const EpisodePage: FC = () => {
-    const { id } = useParams();
+    console.log("episodePage")
+    const {id} = useParams();
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchSingleEpisodeTC(id))
+        dispatch(fetchSingleEpisodeTC(Number(id)))
     }, [id])
 
     const episode = useSelector<AppRootStateType, string>((state) => state.episode.episode)
@@ -31,14 +20,21 @@ export const EpisodePage: FC = () => {
     const characters = useSelector<AppRootStateType, Array<string>>((state) => state.episode.characters)
 
 
-
     return (
-        <Stack direction="column" spacing={2}>
-            <span>{episode}</span>
-            <span>{name}</span>
-            <span>{air_date}</span>
-            <span>{characters}</span>
-        </Stack>
+        <>
+            <h2 style={{textAlign: "center"}}> Episode </h2>
+            <Stack direction="row" spacing={2}>
+                <Paper style={{padding: '10px'}}>{episode}</Paper>
+                <Paper style={{padding: '10px'}}>{name}</Paper>
+                <Paper style={{padding: '10px'}}>{air_date}</Paper>
+            </Stack>
+            <h3>Characters in the episode</h3>
+            <Stack spacing={2}>
+                {characters.map((ch) => (
+                    <Paper style={{padding: '10px'}}>{ch}</Paper>
+                ))}
+            </Stack>
+        </>
     )
 
 }

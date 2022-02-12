@@ -19,7 +19,6 @@ export const Episode: FC<EpisodePropsType> = memo(
           navigate(`episode/${id}`)
         }}
       >
-
           <Stack direction="row" spacing={2}>
               <span>{episode}</span>
               <span>{name}</span>
