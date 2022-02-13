@@ -1,5 +1,5 @@
 import React, {FC, memo, useEffect} from 'react'
-import {Paper, Stack} from "@mui/material";
+import {LinearProgress, Paper, Stack} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../dal/store";
 import {useParams} from "react-router-dom";
@@ -7,11 +7,15 @@ import {fetchSingleEpisodeTC} from "../dal/episode-reducer";
 import {CharacterType} from "../dal/character-reducer";
 import {fetchMultipleCharactersTC} from "../dal/characters-reducer";
 import {Character} from "../Characters/Character";
+import s from "../App/App.module.css";
+import {RequestStatusType} from "../dal/app-reducer";
 
 export const EpisodePage: FC =memo( () => {
     const {id} = useParams();
     const dispatch = useDispatch()
-
+    const status = useSelector<AppRootStateType, RequestStatusType>(
+        (state) => state.app.status
+    )
     useEffect(() => {
         dispatch(fetchSingleEpisodeTC(Number(id)))
     }, [id])
@@ -36,7 +40,8 @@ export const EpisodePage: FC =memo( () => {
 
 
     return (
-        <>
+        <div className={s.app}>
+            {status === 'loading' && <LinearProgress/>}
             <h2 style={{textAlign: "center"}}> Episode </h2>
             <Stack direction="row" spacing={2}>
                 <Paper style={{padding: '10px', fontSize: "20px"}}>
@@ -49,11 +54,13 @@ export const EpisodePage: FC =memo( () => {
             <Stack spacing={2}>
                 {characters.map((ch) => (
                     <Paper key={ch.id} style={{padding: '10px'}}>
-                        <Character id={ch.id} name={ch.name} image={ch.image}/>
+                        <Character id={ch.id}
+                                   name={ch.name}
+                                   image={ch.image}/>
                     </Paper>
                 ))}
             </Stack>
-        </>
+        </div>
     )
 
 })

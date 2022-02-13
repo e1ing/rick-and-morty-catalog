@@ -5,6 +5,7 @@ import { characterReducer } from './character-reducer'
 import { charactersReducer } from './characters-reducer'
 import { episodeReducer } from './episode-reducer'
 import { episodesReducer } from './episodes-reducer'
+import { locationReducer } from './location-reducer'
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -12,7 +13,7 @@ const rootReducer = combineReducers({
   episode: episodeReducer,
   character: characterReducer,
   characters: charactersReducer,
-  /*locations: locationsReducer*/
+  location: locationReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))

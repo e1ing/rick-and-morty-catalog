@@ -4,6 +4,7 @@ import {EpisodeType, fetchEpisodesTC} from '../dal/episodes-reducer'
 import {Episode} from './Episode'
 import {AppRootStateType} from '../dal/store'
 import {Paper, Stack} from "@mui/material";
+import s from "../App/App.module.css";
 
 export const EpisodesPage = memo(() => {
     const dispatch = useDispatch()
@@ -16,7 +17,7 @@ export const EpisodesPage = memo(() => {
     }, [])
 //
     return (
-        <Stack spacing={2}>
+        <Stack spacing={2} className={s.app}>
             {episodes.map((ep) => (
                 <Paper key={ep.id} style={{padding: '10px'}}>
                     <Episode

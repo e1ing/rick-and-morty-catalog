@@ -1,6 +1,7 @@
 import {Stack} from '@mui/material'
 import React, {FC, memo} from 'react'
 import {useNavigate} from 'react-router-dom'
+import s from "../App/App.module.css";
 
 export type CharacterPropsType = {
     id: number|null
@@ -12,7 +13,7 @@ export const Character: FC<CharacterPropsType> = memo(
     ({id, image, name}) => {
         const navigate = useNavigate()
         return (
-            <div
+            <div className={s.app}
                 style={{cursor: 'pointer'}}
                 onClick={() => {
                     navigate(`/character/${id}`)

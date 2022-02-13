@@ -33,7 +33,7 @@ export const locationReducer = (
 ): LocationType => {
     switch (action.type) {
         case 'SET-SINGLE-LOCATION':
-            action.location
+           return action.location
         default:
             return state
     }

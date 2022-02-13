@@ -8,6 +8,7 @@ export type EpisodeType = {
   air_date: string
   episode: string
   characters: Array<string>
+  url: string
 }
 
 const initialState: Array<EpisodeType> = []
@@ -33,6 +34,7 @@ export const episodesReducer = (
 export const setEpisodesAC = (episodes: Array<EpisodeType>) =>
   ({ type: 'SET-EPISODES', episodes } as const)
 
+
 // thunk creators
 export const fetchEpisodesTC = () => {
   return (dispatch: Dispatch<EpisodesActionsType>) => {
@@ -43,3 +45,14 @@ export const fetchEpisodesTC = () => {
     })
   }
 }
+
+export const fetchMultipleEpisodesTC = (id: Array<number>) => {
+  return (dispatch: Dispatch<EpisodesActionsType>) => {
+    dispatch(setStatusAC('loading'))
+    rickAndMortyApi.getMultipleEpisodes(id).then((res) => {
+      dispatch(setEpisodesAC(res.data))
+      dispatch(setStatusAC('succeeded'))
+    })
+  }
+}
+
