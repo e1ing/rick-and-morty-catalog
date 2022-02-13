@@ -7,7 +7,7 @@ import {RoutesComponent} from "./components/RoutesComponent";
 
 ReactDom.render(
     <React.StrictMode>
-        <HashRouter basename={`/${process.env.PUBLIC_URL}`}>
+        <HashRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <RoutesComponent/>
             </Provider>
