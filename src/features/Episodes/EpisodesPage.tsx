@@ -5,9 +5,11 @@ import {Episode} from './Episode'
 import {AppRootStateType} from '../../dal/store'
 import {Paper, Stack} from "@mui/material";
 import s from "../../App/App.module.css";
+import {useNavigate} from "react-router-dom";
 
 export const EpisodesPage = memo(() => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(
         (state) => state.episodes
     )
@@ -20,12 +22,19 @@ export const EpisodesPage = memo(() => {
         <Stack spacing={2} className={s.app}>
             {episodes.map((ep) => {
                 return <Paper key={ep.id} style={{padding: '10px'}}>
-                    <Episode
-                        id={ep.id}
-                        episode={ep.episode}
-                        name={ep.name}
-                        air_date={ep.air_date}
-                    />
+                    <div className={s.app}
+                         style={{cursor: 'pointer'}}
+                         onClick={() => {
+                             navigate(`/episode/${ep.id}`)
+                         }}
+                    >
+                        <Episode
+                            id={ep.id}
+                            episode={ep.episode}
+                            name={ep.name}
+                            air_date={ep.air_date}
+                        />
+                    </div>
                 </Paper>
             })}
         </Stack>

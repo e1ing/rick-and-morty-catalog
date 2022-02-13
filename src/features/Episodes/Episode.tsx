@@ -11,22 +11,14 @@ export type EpisodePropsType = {
 }
 
 export const Episode: FC<EpisodePropsType> = memo(
-  ({id, episode, name, air_date}) => {
-    const navigate = useNavigate()
+  ({episode, name, air_date}) => {
     return (
-      <div className={s.app}
-        style={{ cursor: 'pointer' }}
-        onClick={() => {
-          navigate(`/episode/${id}`)
-        }}
-      >
           <Stack direction="row" spacing={2}>
               <span>{episode}</span>
               <span>{name}</span>
               <span>{air_date}</span>
           </Stack>
 
-      </div>
     )
   }
 )

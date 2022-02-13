@@ -10,14 +10,14 @@ import {Episode} from "../Episodes/Episode";
 import {RequestStatusType} from "../../dal/app-reducer";
 import {toGetIds} from "../../utils/toGetIds";
 
-export const CharactersPage = memo(() => {
+export const CharacterPage = memo(() => {
     const dispatch = useDispatch()
     const {id} = useParams();
     const navigate = useNavigate()
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     const character = useSelector<AppRootStateType, CharacterType>(state => state.character)
     const episodesUrl = useSelector<AppRootStateType, Array<string>>(state => state.character.episode)
-    const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
+
     const locationUrl = useSelector<AppRootStateType, string>(state => state.character.location.url)
 
     const location_id = toGetIds([locationUrl])
@@ -34,7 +34,7 @@ export const CharactersPage = memo(() => {
             dispatch(fetchMultipleEpisodesTC(episodes_id))
         }
     }, [episodesUrl])
-
+    const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
 
     return (
         <div className={s.app}>
@@ -64,11 +64,19 @@ export const CharactersPage = memo(() => {
             <Stack spacing={3}>
                 {episodes.map(ep => {
                     return <Paper key={ep.id} style={{padding: '10px'}}>
-                        <Episode
-                            name={ep.name}
-                            air_date={ep.air_date}
-                            episode={ep.episode}/>
+                        <div className={s.app}
+                             style={{cursor: 'pointer'}}
+                             onClick={() => {
+                                 navigate(`/episode/${ep.id}`)
+                             }}
+                        >
+                            <Episode
+                                name={ep.name}
+                                air_date={ep.air_date}
+                                episode={ep.episode}/>
+                        </div>
                     </Paper>
+
                 })
                 }
             </Stack>

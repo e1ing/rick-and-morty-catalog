@@ -25,7 +25,7 @@ export const LocationPage = memo(() => {
         if (id) {
             dispatch(fetchSingleLocationTC(Number(id)))
         }
-    }, [id])
+    }, [])
 
     //fetch characters in this location
     const charactersFromLocation = useSelector<AppRootStateType, Array<CharacterType>>(state => state.characters)
