@@ -8,8 +8,7 @@ import {RoutesComponent} from "./components/RoutesComponent";
 
 ReactDom.render(
     <React.StrictMode>
-            <BrowserRouter  >
-               {/* basename={`/${process.env.PUBLIC_URL}`}*/}
+        <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
             <Provider store={store}>
                 <RoutesComponent/>
             </Provider>

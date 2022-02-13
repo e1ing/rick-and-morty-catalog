@@ -28,13 +28,6 @@ export const LocationPage = memo(() => {
     }, [id])
 
     //fetch characters in this location
-    /*useEffect(() => {
-        dispatch(fetchMultipleCharactersTC(characters_id))
-    }, [characters_id])*/
-
-    //fetch episodes_id from characters, who are mentioned in this location
-  /* const char = useSelector<AppRootStateType, CharacterType>(state => state.character)*/
-
     const charactersFromLocation = useSelector<AppRootStateType, Array<CharacterType>>(state => state.characters)
     const episodesFromCharactersUrl = charactersFromLocation.map(ch => {
         return ch.episode[ch.episode.length - 1]
