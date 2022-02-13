@@ -1,18 +1,17 @@
 import ReactDom from 'react-dom'
-import {App} from './App/App'
 import {Provider} from 'react-redux'
 import {store} from './dal/store'
 import React from 'react'
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter, HashRouter} from 'react-router-dom'
 import {RoutesComponent} from "./components/RoutesComponent";
 
 ReactDom.render(
     <React.StrictMode>
-        <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
+        <HashRouter basename={`/${process.env.PUBLIC_URL}`}>
             <Provider store={store}>
                 <RoutesComponent/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     </React.StrictMode>,
     document.getElementById('root')
 )
