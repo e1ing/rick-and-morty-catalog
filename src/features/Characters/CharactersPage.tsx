@@ -10,7 +10,7 @@ import {Episode} from "../Episodes/Episode";
 import {RequestStatusType} from "../../dal/app-reducer";
 import {toGetIds} from "../../utils/toGetIds";
 
-export const CharacterPage = memo(() => {
+export const CharactersPage = memo(() => {
     const dispatch = useDispatch()
     const {id} = useParams();
     const navigate = useNavigate()
@@ -20,8 +20,7 @@ export const CharacterPage = memo(() => {
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
     const locationUrl = useSelector<AppRootStateType, string>(state => state.character.location.url)
 
-    const arrFromLocUrl = locationUrl.split('/')
-    const location_id = +arrFromLocUrl[arrFromLocUrl.length - 1]
+    const location_id = toGetIds([locationUrl])
 
     useEffect(() => {
         if (id) {
@@ -56,10 +55,10 @@ export const CharacterPage = memo(() => {
             <h3>Location</h3>
             <Paper style={{padding: '10px', fontSize: "20px"}}>
                 <div onClick={() => {
-                    navigate(`/location/${location_id}`)
+                    navigate(`/location/${location_id[0]}`)
                 }}
                      style={{cursor: 'pointer'}}>
-                    Location: {character.location.name} </div>
+                    {character.location.name} </div>
             </Paper>
             <h3>Episodes</h3>
             <Stack spacing={3}>

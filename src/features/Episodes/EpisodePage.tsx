@@ -9,6 +9,7 @@ import {fetchMultipleCharactersTC} from "../../dal/characters-reducer";
 import {Character} from "../Characters/Character";
 import s from "../../App/App.module.css";
 import {RequestStatusType} from "../../dal/app-reducer";
+import {toGetIds} from "../../utils/toGetIds";
 
 export const EpisodePage: FC = memo(() => {
     const {id} = useParams();
@@ -30,10 +31,7 @@ export const EpisodePage: FC = memo(() => {
 
     useEffect(() => {
         if (charactersUrl.length) {
-            const characters_id = charactersUrl.map((ch) => {
-                const arr = ch.split('/')
-                return +arr[arr.length - 1]
-            })
+            const characters_id = toGetIds(charactersUrl)
             dispatch(fetchMultipleCharactersTC(characters_id))
         }
     }, [charactersUrl])

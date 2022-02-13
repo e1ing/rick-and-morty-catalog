@@ -3,7 +3,7 @@ import {Routes, Route} from 'react-router-dom';
 import {EpisodePage} from '../features/Episodes/EpisodePage';
 import { Error404 } from './Error404';
 import {App} from "../App/App";
-import {CharacterPage} from "../features/Characters/CharacterPage";
+import {CharactersPage} from "../features/Characters/CharactersPage";
 import {LocationPage} from "../features/Locations/LocationPage";
 
 export const PATH = {
@@ -18,7 +18,7 @@ export const RoutesComponent = () => {
                 <Routes>
                     <Route path={`/`} element={<App/>}/>
                     <Route path={`${PATH.EPISODE}/:id`} element={<EpisodePage/>}/>
-                    <Route path={`${PATH.CHARACTER}/:id`} element={<CharacterPage/>}/>
+                    <Route path={`${PATH.CHARACTER}/:id`} element={<CharactersPage/>}/>
                     <Route path={`${PATH.LOCATION}/:id`} element={<LocationPage/>}/>
                     <Route path={PATH.ERROR_404} element={<Error404/>}/>
                     <Route path={'/*'} element={<Error404/>}/>

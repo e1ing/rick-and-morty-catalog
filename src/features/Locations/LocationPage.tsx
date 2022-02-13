@@ -23,16 +23,18 @@ export const LocationPage = memo(() => {
     //fetch location information
     useEffect(() => {
         if (id) {
-            dispatch(fetchSingleLocationTC(+id))
+            dispatch(fetchSingleLocationTC(Number(id)))
         }
     }, [id])
 
     //fetch characters in this location
-    useEffect(() => {
+    /*useEffect(() => {
         dispatch(fetchMultipleCharactersTC(characters_id))
-    })
+    }, [characters_id])*/
 
     //fetch episodes_id from characters, who are mentioned in this location
+  /* const char = useSelector<AppRootStateType, CharacterType>(state => state.character)*/
+
     const charactersFromLocation = useSelector<AppRootStateType, Array<CharacterType>>(state => state.characters)
     const episodesFromCharactersUrl = charactersFromLocation.map(ch => {
         return ch.episode[ch.episode.length - 1]
@@ -41,10 +43,11 @@ export const LocationPage = memo(() => {
 
     //fetch episodes
     useEffect(() => {
-        if (episodes_id) {
+        if (episodes_id.length) {
             dispatch(fetchMultipleEpisodesTC(episodes_id))
         }
-    })
+    }, [])
+
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
 
     return (
@@ -59,7 +62,7 @@ export const LocationPage = memo(() => {
                 </Paper>
             </Stack>
             <h3>Episodes</h3>
-            <Stack spacing={2}>
+            <Stack spacing={3}>
                 {episodes.map((ep) => {
                    return <Paper key={ep.id} style={{padding: '10px'}}>
                         <Episode
@@ -67,7 +70,8 @@ export const LocationPage = memo(() => {
                             air_date={ep.air_date}
                             episode={ep.episode}/>
                     </Paper>
-                })}
+                })
+                }
             </Stack>
         </div>
     )
