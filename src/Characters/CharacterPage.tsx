@@ -3,16 +3,25 @@ import {useDispatch, useSelector} from "react-redux";
 import {CharacterType, fetchSingleCharacterTC} from "../dal/character-reducer";
 import {AppRootStateType} from "../dal/store";
 import {LinearProgress, Paper, Stack} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import s from "../App/App.module.css";
 import {EpisodeType, fetchMultipleEpisodesTC} from "../dal/episodes-reducer";
 import {Episode} from "../Episodes/Episode";
 import {RequestStatusType} from "../dal/app-reducer";
+import {toGetIds} from "../utils/toGetIds";
 
 export const CharacterPage = memo(() => {
     const dispatch = useDispatch()
     const {id} = useParams();
+    const navigate = useNavigate()
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+    const character = useSelector<AppRootStateType, CharacterType>(state => state.character)
+    const episodesUrl = useSelector<AppRootStateType, Array<string>>(state => state.character.episode)
+    const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
+    const locationUrl = useSelector<AppRootStateType, string>(state => state.character.location.url)
+
+    const arrFromLocUrl = locationUrl.split('/')
+    const location_id = +arrFromLocUrl[arrFromLocUrl.length-1]
 
     useEffect(() => {
         if (id) {
@@ -20,18 +29,10 @@ export const CharacterPage = memo(() => {
         }
     }, [id])
 
-    const character = useSelector<AppRootStateType, CharacterType>(state => state.character)
-    const episodesUrl = useSelector<AppRootStateType, Array<string>>(state => state.character.episode)
-    const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
-
     useEffect(() => {
         if (episodesUrl.length) {
-            const episodes_id = episodesUrl.map((ch) => {
-                const arr = ch.split('/')
-                return +arr[arr.length - 1]
-            })
+            const episodes_id = toGetIds(episodesUrl)
             dispatch(fetchMultipleEpisodesTC(episodes_id))
-
         }
     }, [episodesUrl])
 
@@ -50,9 +51,16 @@ export const CharacterPage = memo(() => {
                     <div>Species: {character.species}</div>
                     <div>Gender: {character.gender}</div>
                     <div>Origin: {character.origin.name}</div>
-                    <div> Location: {character.location.name} </div>
                 </Paper>
             </Stack>
+            <h3>Location</h3>
+            <Paper style={{padding: '10px', fontSize: "20px"}}>
+                <div onClick={() => {
+                    navigate(`/location/${location_id}`)
+                }}
+                     style={{cursor: 'pointer'}}>
+                    Location: {character.location.name} </div>
+            </Paper>
             <h3>Episodes</h3>
             <Stack spacing={2}>
                 {episodes.map((ch) => (

@@ -9,7 +9,6 @@ export type LocationType = {
     dimension: string
     residents: Array<string>
     url: string
-    created: string
 }
 
 const initialState: LocationType = {
@@ -18,12 +17,11 @@ const initialState: LocationType = {
     type: "",
     dimension: "",
     residents: [],
-    url: "string",
-    created: ""
+    url: "string"
 }
 
 type CharacterActionsType =
-    | ReturnType<typeof setSingleCharacterAC>
+    | ReturnType<typeof setSingleLocationAC>
     | SetErrorAT
     | SetStatusAT
 
@@ -40,7 +38,7 @@ export const locationReducer = (
 }
 
 // action creators
-export const setSingleCharacterAC = (location: LocationType) =>
+export const setSingleLocationAC = (location: LocationType) =>
     ({type: 'SET-SINGLE-LOCATION', location} as const)
 
 // thunk creators
@@ -48,7 +46,7 @@ export const fetchSingleLocationTC = (id: number) => {
     return (dispatch: Dispatch<CharacterActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getSingleLocation(id).then((res) => {
-            dispatch(setSingleCharacterAC(res.data))
+            dispatch(setSingleLocationAC(res.data))
             dispatch(setStatusAC('succeeded'))
         })
     }
