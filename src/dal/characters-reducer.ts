@@ -1,11 +1,9 @@
 import {rickAndMortyApi} from '../api/api'
 import {Dispatch} from 'redux'
-import {SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
+import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
 import {CharacterType} from "./character-reducer";
 
-
 const initialState: Array<CharacterType> = []
-
 
 type CharacterActionsType =
     | ReturnType<typeof setMultipleCharactersAC>
@@ -32,9 +30,13 @@ export const setMultipleCharactersAC = (characters: Array<CharacterType>) =>
 export const fetchMultipleCharactersTC = (id: Array<number>) => {
     return (dispatch: Dispatch<CharacterActionsType>) => {
         dispatch(setStatusAC('loading'))
-        rickAndMortyApi.getMultipleCharacter(id).then((res) => {
+        rickAndMortyApi.getMultipleCharacter(id)
+            .then((res) => {
             dispatch(setMultipleCharactersAC(res.data))
             dispatch(setStatusAC('succeeded'))
         })
+            .catch(error => {
+                dispatch(setErrorAC(error))
+            })
     }
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom';
-import {EpisodePage} from '../Episodes/EpisodePage';
+import {EpisodePage} from '../features/Episodes/EpisodePage';
 import { Error404 } from './Error404';
 import {App} from "../App/App";
-import {CharacterPage} from "../Characters/CharacterPage";
-import {LocationPage} from "../Locations/LocationPage";
+import {CharacterPage} from "../features/Characters/CharacterPage";
+import {LocationPage} from "../features/Locations/LocationPage";
 
 export const PATH = {
     EPISODE: '/episode',

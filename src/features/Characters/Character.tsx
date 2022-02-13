@@ -1,7 +1,7 @@
 import {Stack} from '@mui/material'
 import React, {FC, memo} from 'react'
 import {useNavigate} from 'react-router-dom'
-import s from "../App/App.module.css";
+import s from "../../App/App.module.css";
 
 export type CharacterPropsType = {
     id: number|null

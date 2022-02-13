@@ -1,16 +1,16 @@
 import React, {FC, memo, useEffect} from 'react'
-import {LinearProgress, Paper, Stack} from "@mui/material";
+import {Grid, LinearProgress, Paper, Stack} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../dal/store";
+import {AppRootStateType} from "../../dal/store";
 import {useParams} from "react-router-dom";
-import {fetchSingleEpisodeTC} from "../dal/episode-reducer";
-import {CharacterType} from "../dal/character-reducer";
-import {fetchMultipleCharactersTC} from "../dal/characters-reducer";
+import {fetchSingleEpisodeTC} from "../../dal/episode-reducer";
+import {CharacterType} from "../../dal/character-reducer";
+import {fetchMultipleCharactersTC} from "../../dal/characters-reducer";
 import {Character} from "../Characters/Character";
-import s from "../App/App.module.css";
-import {RequestStatusType} from "../dal/app-reducer";
+import s from "../../App/App.module.css";
+import {RequestStatusType} from "../../dal/app-reducer";
 
-export const EpisodePage: FC =memo( () => {
+export const EpisodePage: FC = memo(() => {
     const {id} = useParams();
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>(
@@ -48,17 +48,21 @@ export const EpisodePage: FC =memo( () => {
                     <div>{episode}</div>
                     <div> {name}</div>
                     <div> {air_date}</div>
-            </Paper>
+                </Paper>
             </Stack>
             <h3>Characters in the episode</h3>
             <Stack spacing={2}>
-                {characters.map((ch) => (
-                    <Paper key={ch.id} style={{padding: '10px'}}>
-                        <Character id={ch.id}
-                                   name={ch.name}
-                                   image={ch.image}/>
-                    </Paper>
-                ))}
+                {characters.map((ch) => {
+                    return <Grid key={ch.id} container>
+                        <Grid item xs={8}>
+                            <Paper style={{padding: '10px'}}>
+                                <Character id={ch.id}
+                                           name={ch.name}
+                                           image={ch.image}/>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                })}
             </Stack>
         </div>
     )

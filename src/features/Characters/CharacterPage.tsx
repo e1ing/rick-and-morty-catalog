@@ -1,14 +1,14 @@
 import React, {memo, useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {CharacterType, fetchSingleCharacterTC} from "../dal/character-reducer";
-import {AppRootStateType} from "../dal/store";
-import {LinearProgress, Paper, Stack} from "@mui/material";
+import {CharacterType, fetchSingleCharacterTC} from "../../dal/character-reducer";
+import {AppRootStateType} from "../../dal/store";
+import {Grid, LinearProgress, Paper, Stack} from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
-import s from "../App/App.module.css";
-import {EpisodeType, fetchMultipleEpisodesTC} from "../dal/episodes-reducer";
+import s from "../../App/App.module.css";
+import {EpisodeType, fetchMultipleEpisodesTC} from "../../dal/episodes-reducer";
 import {Episode} from "../Episodes/Episode";
-import {RequestStatusType} from "../dal/app-reducer";
-import {toGetIds} from "../utils/toGetIds";
+import {RequestStatusType} from "../../dal/app-reducer";
+import {toGetIds} from "../../utils/toGetIds";
 
 export const CharacterPage = memo(() => {
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ export const CharacterPage = memo(() => {
     const locationUrl = useSelector<AppRootStateType, string>(state => state.character.location.url)
 
     const arrFromLocUrl = locationUrl.split('/')
-    const location_id = +arrFromLocUrl[arrFromLocUrl.length-1]
+    const location_id = +arrFromLocUrl[arrFromLocUrl.length - 1]
 
     useEffect(() => {
         if (id) {
@@ -62,16 +62,18 @@ export const CharacterPage = memo(() => {
                     Location: {character.location.name} </div>
             </Paper>
             <h3>Episodes</h3>
-            <Stack spacing={2}>
-                {episodes.map((ch) => (
-                    <Paper key={ch.id} style={{padding: '10px'}}>
+            <Stack spacing={3}>
+                {episodes.map(ep => {
+                    return <Paper key={ep.id} style={{padding: '10px'}}>
                         <Episode
-                            name={ch.name}
-                            air_date={ch.air_date}
-                            episode={ch.episode}/>
+                            name={ep.name}
+                            air_date={ep.air_date}
+                            episode={ep.episode}/>
                     </Paper>
-                ))}
+                })
+                }
             </Stack>
+
         </div>
     )
 })

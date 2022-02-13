@@ -1,16 +1,16 @@
 import React, {memo, useEffect} from 'react'
-import s from "../App/App.module.css";
+import s from "../../App/App.module.css";
 import {LinearProgress, Paper, Stack} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../dal/store";
-import {RequestStatusType} from "../dal/app-reducer";
-import {fetchSingleLocationTC, LocationType} from "../dal/location-reducer";
+import {AppRootStateType} from "../../dal/store";
+import {RequestStatusType} from "../../dal/app-reducer";
+import {fetchSingleLocationTC, LocationType} from "../../dal/location-reducer";
 import {useParams} from "react-router-dom";
-import {fetchMultipleCharactersTC} from "../dal/characters-reducer";
-import {CharacterType} from "../dal/character-reducer";
-import {EpisodeType, fetchMultipleEpisodesTC} from "../dal/episodes-reducer";
+import {fetchMultipleCharactersTC} from "../../dal/characters-reducer";
+import {CharacterType} from "../../dal/character-reducer";
+import {EpisodeType, fetchMultipleEpisodesTC} from "../../dal/episodes-reducer";
 import {Episode} from '../Episodes/Episode';
-import {toGetIds} from "../utils/toGetIds";
+import {toGetIds} from "../../utils/toGetIds";
 
 export const LocationPage = memo(() => {
     const dispatch = useDispatch()
@@ -35,7 +35,7 @@ export const LocationPage = memo(() => {
     //fetch episodes_id from characters, who are mentioned in this location
     const charactersFromLocation = useSelector<AppRootStateType, Array<CharacterType>>(state => state.characters)
     const episodesFromCharactersUrl = charactersFromLocation.map(ch => {
-        return (ch.episode[ch.episode.length - 1])
+        return ch.episode[ch.episode.length - 1]
     })
     const episodes_id = toGetIds(episodesFromCharactersUrl)
 
@@ -60,14 +60,14 @@ export const LocationPage = memo(() => {
             </Stack>
             <h3>Episodes</h3>
             <Stack spacing={2}>
-                {episodes.map((ep) => (
-                    <Paper key={ep.id} style={{padding: '10px'}}>
+                {episodes.map((ep) => {
+                   return <Paper key={ep.id} style={{padding: '10px'}}>
                         <Episode
                             name={ep.name}
                             air_date={ep.air_date}
                             episode={ep.episode}/>
                     </Paper>
-                ))}
+                })}
             </Stack>
         </div>
     )

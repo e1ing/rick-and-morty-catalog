@@ -1,9 +1,9 @@
 import {rickAndMortyApi} from '../api/api'
 import {Dispatch} from 'redux'
-import {SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
+import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
 
 export type CharacterType = {
-    id: number|null
+    id: number | null
     name: string
     status: string
     species: string
@@ -43,25 +43,29 @@ type CharacterActionsType =
     | SetErrorAT
     | SetStatusAT
 
-export const characterReducer = (state: CharacterType = initialState,action: CharacterActionsType): CharacterType => {
+export const characterReducer = (state: CharacterType = initialState, action: CharacterActionsType): CharacterType => {
     switch (action.type) {
         case 'SET-SINGLE-CHARACTER':
-           return action.character
+            return action.character
         default:
             return state
     }
 }
 
 // action creators
-const setSingleCharacterAC = (character: CharacterType) =>({type: 'SET-SINGLE-CHARACTER', character} as const)
+const setSingleCharacterAC = (character: CharacterType) => ({type: 'SET-SINGLE-CHARACTER', character} as const)
 
 // thunk creators
 export const fetchSingleCharacterTC = (id: number) => {
     return (dispatch: Dispatch<CharacterActionsType>) => {
         dispatch(setStatusAC('loading'))
-        rickAndMortyApi.getSingleCharacter(id).then((res) => {
-            dispatch(setSingleCharacterAC(res.data))
-            dispatch(setStatusAC('succeeded'))
-        })
+        rickAndMortyApi.getSingleCharacter(id)
+            .then((res) => {
+                dispatch(setSingleCharacterAC(res.data))
+                dispatch(setStatusAC('succeeded'))
+            })
+            .catch(error => {
+                dispatch(setErrorAC(error))
+            })
     }
 }
