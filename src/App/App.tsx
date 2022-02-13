@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import {LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from '../components/ErrorSnackbar';
 import s from './App.module.css';
+import {Search} from "../components/Search";
 
 export const App = () => {
     const status = useSelector<AppRootStateType, RequestStatusType>(
@@ -18,7 +19,7 @@ export const App = () => {
             <ErrorSnackbar/>
             <h1 style={{textAlign: "center"}}> Rick and Morty app</h1>
             <Grid container style={{padding: '20px'}}>
-                {/* <Search value={} placeholder={} onChange={}/>*/}
+                 <Search value={""} placeholder={"Episode name"} onChange={()=>{}} />
             </Grid>
             <h2>Episodes list</h2>
             <Grid container spacing={3} style={{padding: '30px'}}>

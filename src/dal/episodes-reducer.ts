@@ -31,8 +31,8 @@ export const episodesReducer = (
 }
 
 // action creators
-export const setEpisodesAC = (episodes: Array<EpisodeType>) =>
-    ({type: 'SET-EPISODES', episodes} as const)
+export const setEpisodesAC = (episodes: Array<EpisodeType>) => ({
+    type: 'SET-EPISODES', episodes} as const)
 
 
 // thunk creators
@@ -63,4 +63,19 @@ export const fetchMultipleEpisodesTC = (id: Array<number>) => {
             })
     }
 }
+
+export const filterEpisodes = (search: string) => {
+    return (dispatch: Dispatch<EpisodesActionsType>) => {
+        dispatch(setStatusAC('loading'))
+        rickAndMortyApi.filterEpisodes(search)
+            .then((res) => {
+                dispatch(setEpisodesAC(res.data))
+                dispatch(setStatusAC('succeeded'))
+            })
+            .catch(error => {
+                dispatch(setErrorAC(error))
+            })
+    }
+}
+
 

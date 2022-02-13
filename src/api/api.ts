@@ -91,6 +91,9 @@ export const rickAndMortyApi = {
   getMultipleEpisodes(episodes_id: Array<number>) {
     return instance.get<Array<EpisodeAPIType>>(`episode/${episodes_id}`)
   },
+  filterEpisodes(search: string) {
+    return instance.get<Array<EpisodeAPIType>>(`episode?name=${search.toLowerCase()}`)
+  },
 
   // characters
   getCharacters() {

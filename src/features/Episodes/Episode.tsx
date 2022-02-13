@@ -1,7 +1,5 @@
 import {Stack} from '@mui/material'
-import React, { FC, memo } from 'react'
-import { useNavigate } from 'react-router-dom'
-import s from "../../App/App.module.css";
+import React, {FC, memo} from 'react'
 
 export type EpisodePropsType = {
   id?: number
