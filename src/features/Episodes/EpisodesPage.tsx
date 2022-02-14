@@ -17,7 +17,6 @@ export const EpisodesPage = memo(() => {
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(
         (state) => state.episodes
     )
-console.log("Episodes", episodes)
 
     useEffect(() => {
         dispatch(fetchEpisodesTC())
