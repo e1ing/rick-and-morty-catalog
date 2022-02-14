@@ -26,7 +26,7 @@ export const episodesReducer = (
 ): Array<EpisodeType> => {
     switch (action.type) {
         case 'SET-EPISODES':
-            return action.episodes
+            return [...action.episodes]
         default:
             return state
     }
@@ -58,7 +58,7 @@ export const fetchMultipleEpisodesTC = (id: Array<number>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getMultipleEpisodes(id)
             .then((res) => {
-                dispatch(setEpisodesAC(res.data))
+                dispatch(setEpisodesAC([...res.data]))
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(error => {

@@ -34,6 +34,7 @@ export const CharacterPage = memo(() => {
             dispatch(fetchMultipleEpisodesTC(episodes_id))
         }
     }, [episodesUrl])*/
+
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
 console.log("Episodes", episodes)
     return (

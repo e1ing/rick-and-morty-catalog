@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 
 const settings = {
   //withCredentials: true,
@@ -89,7 +89,7 @@ export const rickAndMortyApi = {
     return instance.get<EpisodeAPIType>(`episode/${id}`)
   },
   getMultipleEpisodes(episodes_id: Array<number>) {
-    return instance.get<Array<EpisodeAPIType>>(`episode/${episodes_id}`)
+    return instance.get<Array<EpisodeAPIType>, AxiosResponse<Array<EpisodeAPIType>>>(`episode/${episodes_id.toString()}`)
   },
   filterEpisodes(search: string) {
     return instance.get<GetEpisodeResponseType>(`episode?name=${search.toLowerCase()}`)
