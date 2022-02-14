@@ -3,7 +3,8 @@ import {Dispatch} from 'redux'
 import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
 import {toGetIds} from "../utils/toGetIds";
 import {fetchMultipleEpisodesTC} from "./episodes-reducer";
-import {AppActionsType} from "./store";
+import {AppActionsType, AppRootStateType} from "./store";
+import {ThunkAction} from "redux-thunk";
 
 export type CharacterType = {
     id: number | null
@@ -41,7 +42,7 @@ const initialState: CharacterType = {
     image: ""
 }
 
-type CharacterActionsType =
+export type CharacterActionsType =
     | ReturnType<typeof setSingleCharacterAC>
     | SetErrorAT
     | SetStatusAT
@@ -59,8 +60,8 @@ export const characterReducer = (state: CharacterType = initialState, action: Ch
 const setSingleCharacterAC = (character: CharacterType) => ({type: 'SET-SINGLE-CHARACTER', character} as const)
 
 // thunk creators
-export const fetchSingleCharacterTC = (id: number) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
+export const fetchSingleCharacterTC = (id: number):ThunkAction<void, AppActionsType, unknown, AppActionsType> => {
+    return (dispatch) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getSingleCharacter(id)
             .then((res) => {

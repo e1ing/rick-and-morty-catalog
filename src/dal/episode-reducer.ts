@@ -18,12 +18,12 @@ const initialState: EpisodeType = {
     characters: []
 }
 
-type EpisodesActionsType =
+export type EpisodeActionsType =
     | ReturnType<typeof setSingleEpisodeAC>
     | SetErrorAT
     | SetStatusAT
 
-export const episodeReducer = (state: EpisodeType = initialState, action: EpisodesActionsType): EpisodeType => {
+export const episodeReducer = (state: EpisodeType = initialState, action: EpisodeActionsType): EpisodeType => {
     switch (action.type) {
         case 'SET-SINGLE-EPISODE':
             return action.episode
@@ -38,7 +38,7 @@ export const setSingleEpisodeAC = (episode: EpisodeType) =>
 
 // thunk creators
 export const fetchSingleEpisodeTC = (episode_id: number) => {
-    return (dispatch: Dispatch<EpisodesActionsType>) => {
+    return (dispatch: Dispatch<EpisodeActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getSingleEpisode(episode_id)
             .then((res) => {

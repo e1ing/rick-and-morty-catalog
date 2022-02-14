@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { appReducer } from './app-reducer'
-import { characterReducer } from './character-reducer'
-import { charactersReducer } from './characters-reducer'
-import { episodeReducer } from './episode-reducer'
+import {CharacterActionsType, characterReducer} from './character-reducer'
+import {CharactersActionsType, charactersReducer} from './characters-reducer'
+import {EpisodeActionsType, episodeReducer} from './episode-reducer'
 import {EpisodesActionsType, episodesReducer } from './episodes-reducer'
-import {CharacterActionsType, locationReducer} from './location-reducer'
+import {LocationActionsType, locationReducer} from './location-reducer'
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -18,5 +18,10 @@ const rootReducer = combineReducers({
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AppActionsType = CharacterActionsType|EpisodesActionsType|CharacterActionsType|CharacterActionsType
+export type AppActionsType =
+    EpisodesActionsType
+    |LocationActionsType
+    |CharacterActionsType
+    |CharactersActionsType
+    |EpisodeActionsType
 

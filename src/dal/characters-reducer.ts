@@ -5,14 +5,14 @@ import {CharacterType} from "./character-reducer";
 
 const initialState: Array<CharacterType> = []
 
-export type CharacterActionsType =
+export type CharactersActionsType =
     | ReturnType<typeof setMultipleCharactersAC>
     | SetErrorAT
     | SetStatusAT
 
 export const charactersReducer = (
     state: Array<CharacterType> = initialState,
-    action: CharacterActionsType
+    action: CharactersActionsType
 ): Array<CharacterType> => {
     switch (action.type) {
         case 'SET-MULTIPLE-CHARACTERS':
@@ -28,7 +28,7 @@ export const setMultipleCharactersAC = (characters: Array<CharacterType>) =>
 
 // thunk creators
 export const fetchMultipleCharactersTC = (id: Array<number>) => {
-    return (dispatch: Dispatch<CharacterActionsType>) => {
+    return (dispatch: Dispatch<CharactersActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getMultipleCharacter(id)
             .then((res) => {

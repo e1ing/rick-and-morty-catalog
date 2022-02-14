@@ -28,12 +28,12 @@ export const CharacterPage = memo(() => {
         }
     }, [id])
 
-    useEffect(() => {
+  /*  useEffect(() => {
         if (episodesUrl.length) {
             const episodes_id = toGetIds(episodesUrl)
             dispatch(fetchMultipleEpisodesTC(episodes_id))
         }
-    }, [episodesUrl])
+    }, [episodesUrl])*/
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
 console.log("Episodes", episodes)
     return (

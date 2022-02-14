@@ -49,7 +49,7 @@ export const EpisodePage: FC = memo(() => {
                 </Paper>
                 <h3 style={{textAlign: "center"}}>Characters in the episode</h3>
                 {characters.map((ch) => {
-                    return <Stack spacing={2}>
+                    return <Stack key={ch.id} spacing={2}>
                         <Paper style={{padding: '10px'}}>
                             <Character id={ch.id}
                                        name={ch.name}

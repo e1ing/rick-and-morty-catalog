@@ -1,6 +1,7 @@
 import {rickAndMortyApi} from '../api/api'
 import {Dispatch} from 'redux'
 import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
+import {AppActionsType} from "./store";
 
 export type EpisodeType = {
     id: number
@@ -39,7 +40,7 @@ export const setEpisodesAC = (episodes: Array<EpisodeType>) => ({
 
 // thunk creators
 export const fetchEpisodesTC = () => {
-    return (dispatch: Dispatch<EpisodesActionsType>) => {
+    return (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getEpisodes()
             .then((res) => {
@@ -53,11 +54,10 @@ export const fetchEpisodesTC = () => {
 }
 
 export const fetchMultipleEpisodesTC = (id: Array<number>) => {
-    return (dispatch: Dispatch<EpisodesActionsType>) => {
+    return (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getMultipleEpisodes(id)
             .then((res) => {
-                debugger
                 dispatch(setEpisodesAC(res.data))
                 dispatch(setStatusAC('succeeded'))
             })
@@ -68,7 +68,7 @@ export const fetchMultipleEpisodesTC = (id: Array<number>) => {
 }
 
 export const filterEpisodesTC = (search: string) => {
-    return (dispatch: Dispatch<EpisodesActionsType>) => {
+    return (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.filterEpisodes(search)
             .then((res) => {

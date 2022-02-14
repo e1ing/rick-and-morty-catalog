@@ -1,6 +1,7 @@
 import {rickAndMortyApi} from '../api/api'
 import {Dispatch} from 'redux'
 import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
+import {AppActionsType} from "./store";
 
 export type LocationType = {
     id: number | null
@@ -20,14 +21,14 @@ const initialState: LocationType = {
     url: "string"
 }
 
-export type CharacterActionsType =
+export type LocationActionsType =
     | ReturnType<typeof setSingleLocationAC>
     | SetErrorAT
     | SetStatusAT
 
 export const locationReducer = (
     state: LocationType = initialState,
-    action: CharacterActionsType
+    action: LocationActionsType
 ): LocationType => {
     switch (action.type) {
         case 'SET-SINGLE-LOCATION':
@@ -43,7 +44,7 @@ export const setSingleLocationAC = (location: LocationType) =>
 
 // thunk creators
 export const fetchSingleLocationTC = (id: number) => {
-    return (dispatch: Dispatch<CharacterActionsType>) => {
+    return (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getSingleLocation(id)
             .then((res) => {
