@@ -1,51 +1,51 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react'
-import {Input, TextField} from '@mui/material'
-import s from "../App/App.module.css";
+import React, {FC} from 'react'
+import {Button, FormGroup, Grid, TextField} from '@mui/material'
+import {useDispatch} from "react-redux";
+import {FormikProps, useFormik} from "formik";
+import {filterEpisodesTC} from "../dal/episodes-reducer";
 
-type SearchPropsType = {
-    value: string
-    placeholder: string
-    onChange: (text: string) => void
+type FormikErrorType = {
+    search?: string
 }
 
-export const Search: FC<SearchPropsType> = ({value, placeholder, onChange, ...inputProps}) => {
-    // state for keeping search text
-    const [searchText, setSearchText] = useState<string>(value)
-    // state for keeping the timeout
-    const [searchTextTimeout, setSearchTextTimeout] = useState<number>(0)
+/*interface FormValues {
+    search: string;
+}*/
 
-    // onChange handler
-    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-        // cancelling previous timeouts
-        if (searchTextTimeout) {
-            clearTimeout(searchTextTimeout)
-        }
-        // first update the input text as user type
-        setSearchText(e.currentTarget.value)
-        // initialize a setimeout by wrapping in our searchTextTimeout so that we can clear it out using clearTimeout
-        setSearchTextTimeout(
-            +setTimeout(() => {
-                onChange(e.target.value)
-                // timeout is 2500ms, change it to less or more.
-            }, 1500)
-        )
-    }
-
-    // making sure that we clear the timeout if/when the component unmount
-    useEffect(() => {
-        return () => clearTimeout(searchTextTimeout)
-    }, [searchTextTimeout])
+export const Search = () => {
+    const dispatch = useDispatch();
+    const formik = useFormik({
+        initialValues: {
+            search: ""
+        },
+        validate: (values) => {
+            const error: FormikErrorType = {};
+            if (!values.search) {
+                error.search = 'Required';
+            }
+            return error;
+        },
+        onSubmit: (values) => {
+            dispatch(filterEpisodesTC(values))
+            formik.resetForm();
+        },
+    })
 
     return (
-        <TextField fullWidth
-            id="filled-basic"
-            label={placeholder}
-            variant="filled"
-            value={searchText}
-            onChange={handleOnChange}
-            className={s.app}
-        />
-
-
+        <Grid container  justifyContent={"center"}>
+            <Grid item xs={5}>
+            <form onSubmit={formik.handleSubmit}>
+                <FormGroup>
+                    <TextField
+                        label={"Search episode by name"}
+                        {...formik.getFieldProps("search")}
+                    />
+                    {formik.errors.search && <div style={{color: "red", textAlign: "center"}}>{formik.errors.search}</div>}
+                    <Button type={'submit'} variant={'contained'} color={'primary'}>Search</Button>
+                </FormGroup>
+            </form>
+            </Grid>
+        </Grid>
     )
 }
+

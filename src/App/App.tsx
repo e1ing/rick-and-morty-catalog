@@ -19,9 +19,9 @@ export const App = () => {
             <ErrorSnackbar/>
             <h1 style={{textAlign: "center"}}> Rick and Morty app</h1>
             <Grid container style={{padding: '20px'}}>
-                 <Search value={""} placeholder={"Episode name"} onChange={()=>{}} />
+                 <Search/>
             </Grid>
-            <h2>Episodes list</h2>
+            <h2 style={{textAlign: "center"}}>Episodes list</h2>
             <Grid container spacing={3} style={{padding: '30px'}}>
                 <EpisodesPage/>
             </Grid>

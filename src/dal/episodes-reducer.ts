@@ -64,7 +64,7 @@ export const fetchMultipleEpisodesTC = (id: Array<number>) => {
     }
 }
 
-export const filterEpisodes = (search: string) => {
+export const filterEpisodesTC = (search: string) => {
     return (dispatch: Dispatch<EpisodesActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.filterEpisodes(search)

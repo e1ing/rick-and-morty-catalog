@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {EpisodeType, fetchEpisodesTC} from '../../dal/episodes-reducer'
 import {Episode} from './Episode'
 import {AppRootStateType} from '../../dal/store'
-import {Paper, Stack} from "@mui/material";
+import {Grid, Paper, Stack} from "@mui/material";
 import s from "../../App/App.module.css";
 import {useNavigate} from "react-router-dom";
 
@@ -19,6 +19,7 @@ export const EpisodesPage = memo(() => {
     }, [])
 //
     return (
+        <Grid container justifyContent={"center"}>
         <Stack spacing={2} className={s.app}>
             {episodes.map((ep) => {
                 return <Paper key={ep.id} style={{padding: '10px'}}>
@@ -38,6 +39,7 @@ export const EpisodesPage = memo(() => {
                 </Paper>
             })}
         </Stack>
+        </Grid>
     )
 })
 
