@@ -38,31 +38,27 @@ export const EpisodePage: FC = memo(() => {
 
 
     return (
-        <div className={s.app}>
+        <Grid container justifyContent={"center"} className={s.app}>
             {status === 'loading' && <LinearProgress/>}
-            <h2 style={{textAlign: "center"}}> Episode </h2>
-            <Stack direction="row" spacing={2}>
+            <Stack>
+                <h2 style={{textAlign: "center"}}> Episode </h2>
                 <Paper style={{padding: '10px', fontSize: "20px"}}>
                     <div>Episode: {episode}</div>
                     <div>Episode name: {name}</div>
                     <div>Air date: {air_date}</div>
                 </Paper>
-            </Stack>
-            <h3>Characters in the episode</h3>
-            <Stack spacing={2}>
+                <h3 style={{textAlign: "center"}}>Characters in the episode</h3>
                 {characters.map((ch) => {
-                    return <Grid key={ch.id} container>
-                        <Grid item xs={8}>
-                            <Paper style={{padding: '10px'}}>
-                                <Character id={ch.id}
-                                           name={ch.name}
-                                           image={ch.image}/>
-                            </Paper>
-                        </Grid>
-                    </Grid>
+                    return <Stack spacing={2}>
+                        <Paper style={{padding: '10px'}}>
+                            <Character id={ch.id}
+                                       name={ch.name}
+                                       image={ch.image}/>
+                        </Paper>
+                    </Stack>
                 })}
             </Stack>
-        </div>
+        </Grid>
     )
 
 })

@@ -20,8 +20,8 @@ export const Character: FC<CharacterPropsType> = memo(
                 }}
             >
                 <Stack spacing={2}>
-                    <img src = {image} style={{width: "150px"}}/>
-                    <span>{name}</span>
+                    <img src = {image} style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "150px"}}/>
+                    <span style={{textAlign: "center"}}>{name}</span>
                 </Stack>
 
             </div>

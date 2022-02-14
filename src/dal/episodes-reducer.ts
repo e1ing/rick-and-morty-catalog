@@ -69,7 +69,7 @@ export const filterEpisodesTC = (search: string) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.filterEpisodes(search)
             .then((res) => {
-                dispatch(setEpisodesAC(res.data))
+                dispatch(setEpisodesAC(res.data.results))
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(error => {

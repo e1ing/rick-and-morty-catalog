@@ -92,7 +92,7 @@ export const rickAndMortyApi = {
     return instance.get<Array<EpisodeAPIType>>(`episode/${episodes_id}`)
   },
   filterEpisodes(search: string) {
-    return instance.get<Array<EpisodeAPIType>>(`episode?name=${search.toLowerCase()}`)
+    return instance.get<GetEpisodeResponseType>(`episode?name=${search.toLowerCase()}`)
   },
 
   // characters

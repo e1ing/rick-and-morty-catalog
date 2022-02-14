@@ -37,7 +37,8 @@ export const CharacterPage = memo(() => {
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
 
     return (
-        <div className={s.app}>
+        <Grid container justifyContent={"center"} className={s.app}>
+            <Stack>
             {status === 'loading' && <LinearProgress/>}
             <h2 style={{textAlign: "center"}}>Character</h2>
             <Stack direction="row" spacing={2}>
@@ -52,15 +53,15 @@ export const CharacterPage = memo(() => {
                     <div>Origin: {character.origin.name}</div>
                 </Paper>
             </Stack>
-            <h3>Location</h3>
-            <Paper style={{padding: '10px', fontSize: "20px"}}>
+            <h3 style={{textAlign: "center"}}>Location</h3>
+            <Paper style={{padding: '10px'}}>
                 <div onClick={() => {
                     navigate(`/location/${location_id[0]}`)
                 }}
                      style={{cursor: 'pointer'}}>
                     {character.location.name} </div>
             </Paper>
-            <h3>Episodes</h3>
+            <h3 style={{textAlign: "center"}}>Episodes</h3>
             <Stack spacing={3}>
                 {episodes.map(ep => {
                     return <Paper key={ep.id} style={{padding: '10px'}}>
@@ -80,7 +81,7 @@ export const CharacterPage = memo(() => {
                 })
                 }
             </Stack>
-
-        </div>
+            </Stack>
+        </Grid>
     )
 })

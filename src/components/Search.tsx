@@ -25,8 +25,8 @@ export const Search = () => {
             }
             return error;
         },
-        onSubmit: (values) => {
-            dispatch(filterEpisodesTC(values))
+        onSubmit: (values: {search: string}) => {
+            dispatch(filterEpisodesTC(values.search))
             formik.resetForm();
         },
     })
