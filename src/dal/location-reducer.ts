@@ -20,7 +20,7 @@ const initialState: LocationType = {
     url: "string"
 }
 
-type CharacterActionsType =
+export type CharacterActionsType =
     | ReturnType<typeof setSingleLocationAC>
     | SetErrorAT
     | SetStatusAT

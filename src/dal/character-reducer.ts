@@ -1,6 +1,9 @@
 import {rickAndMortyApi} from '../api/api'
 import {Dispatch} from 'redux'
 import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from './app-reducer'
+import {toGetIds} from "../utils/toGetIds";
+import {fetchMultipleEpisodesTC} from "./episodes-reducer";
+import {AppActionsType} from "./store";
 
 export type CharacterType = {
     id: number | null
@@ -57,11 +60,13 @@ const setSingleCharacterAC = (character: CharacterType) => ({type: 'SET-SINGLE-C
 
 // thunk creators
 export const fetchSingleCharacterTC = (id: number) => {
-    return (dispatch: Dispatch<CharacterActionsType>) => {
+    return (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
         rickAndMortyApi.getSingleCharacter(id)
             .then((res) => {
                 dispatch(setSingleCharacterAC(res.data))
+                const episodes_id = toGetIds(res.data.episode)
+                dispatch(fetchMultipleEpisodesTC(episodes_id))
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(error => {

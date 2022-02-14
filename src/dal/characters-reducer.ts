@@ -5,7 +5,7 @@ import {CharacterType} from "./character-reducer";
 
 const initialState: Array<CharacterType> = []
 
-type CharacterActionsType =
+export type CharacterActionsType =
     | ReturnType<typeof setMultipleCharactersAC>
     | SetErrorAT
     | SetStatusAT

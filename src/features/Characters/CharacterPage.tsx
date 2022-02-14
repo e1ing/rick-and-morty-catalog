@@ -35,52 +35,51 @@ export const CharacterPage = memo(() => {
         }
     }, [episodesUrl])
     const episodes = useSelector<AppRootStateType, Array<EpisodeType>>(state => state.episodes)
-
+console.log("Episodes", episodes)
     return (
         <Grid container justifyContent={"center"} className={s.app}>
             <Stack>
-            {status === 'loading' && <LinearProgress/>}
-            <h2 style={{textAlign: "center"}}>Character</h2>
-            <Stack direction="row" spacing={2}>
-                <Paper style={{padding: '10px', fontSize: "20px"}}>
-                    <img src={character.image} alt={"character photo"}/>
-                </Paper>
-                <Paper style={{padding: '10px', fontSize: "20px"}}>
-                    <div>Name: {character.name}</div>
-                    <div>Status: {character.status}</div>
-                    <div>Species: {character.species}</div>
-                    <div>Gender: {character.gender}</div>
-                    <div>Origin: {character.origin.name}</div>
-                </Paper>
-            </Stack>
-            <h3 style={{textAlign: "center"}}>Location</h3>
-            <Paper style={{padding: '10px'}}>
-                <div onClick={() => {
-                    navigate(`/location/${location_id[0]}`)
-                }}
-                     style={{cursor: 'pointer'}}>
-                    {character.location.name} </div>
-            </Paper>
-            <h3 style={{textAlign: "center"}}>Episodes</h3>
-            <Stack spacing={3}>
-                {episodes.map(ep => {
-                    return <Paper key={ep.id} style={{padding: '10px'}}>
-                        <div className={s.app}
-                             style={{cursor: 'pointer'}}
-                             onClick={() => {
-                                 navigate(`/episode/${ep.id}`)
-                             }}
-                        >
-                            <Episode
-                                name={ep.name}
-                                air_date={ep.air_date}
-                                episode={ep.episode}/>
-                        </div>
+                {status === 'loading' && <LinearProgress/>}
+                <h2 style={{textAlign: "center"}}>Character</h2>
+                <Stack direction="row" spacing={2}>
+                    <Paper style={{padding: '10px', fontSize: "20px"}}>
+                        <img src={character.image} alt={"character photo"}/>
                     </Paper>
-
-                })
-                }
-            </Stack>
+                    <Paper style={{padding: '10px', fontSize: "20px"}}>
+                        <div>Name: {character.name}</div>
+                        <div>Status: {character.status}</div>
+                        <div>Species: {character.species}</div>
+                        <div>Gender: {character.gender}</div>
+                        <div>Origin: {character.origin.name}</div>
+                    </Paper>
+                </Stack>
+                <h3 style={{textAlign: "center"}}>Location</h3>
+                <Paper style={{padding: '10px'}}>
+                    <div onClick={() => {
+                        navigate(`/location/${location_id[0]}`)
+                    }}
+                         style={{cursor: 'pointer'}}>
+                        {character.location.name} </div>
+                </Paper>
+                <h3 style={{textAlign: "center"}}>Episodes</h3>
+                <Stack spacing={3}>
+                    {episodes.map(ep => {
+                        return <Paper key={ep.id} style={{padding: '10px'}}>
+                            <div className={s.app}
+                                 style={{cursor: 'pointer'}}
+                                 onClick={() => {
+                                     navigate(`/episode/${ep.id}`)
+                                 }}
+                            >
+                                <Episode
+                                    name={ep.name}
+                                    air_date={ep.air_date}
+                                    episode={ep.episode}/>
+                            </div>
+                        </Paper>
+                    })
+                    }
+                </Stack>
             </Stack>
         </Grid>
     )

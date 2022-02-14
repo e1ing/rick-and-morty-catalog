@@ -4,8 +4,8 @@ import { appReducer } from './app-reducer'
 import { characterReducer } from './character-reducer'
 import { charactersReducer } from './characters-reducer'
 import { episodeReducer } from './episode-reducer'
-import { episodesReducer } from './episodes-reducer'
-import { locationReducer } from './location-reducer'
+import {EpisodesActionsType, episodesReducer } from './episodes-reducer'
+import {CharacterActionsType, locationReducer} from './location-reducer'
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -18,6 +18,5 @@ const rootReducer = combineReducers({
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export type AppRootStateType = ReturnType<typeof rootReducer>
+export type AppActionsType = CharacterActionsType|EpisodesActionsType|CharacterActionsType|CharacterActionsType
 
-// @ts-ignore
-window.store = store
