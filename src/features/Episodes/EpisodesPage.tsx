@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {EpisodeType} from '../../dal/episodes-reducer'
 import {Episode} from './Episode'
 import {AppRootStateType} from '../../dal/store'
@@ -15,7 +15,7 @@ export const EpisodesPage = memo(() => {
     )
     const navigate = useNavigate()
 
-    //paginator
+    //pagination
     const [items, setItems] = useState<Array<EpisodeType>>([])
     const [hasMore, setHasMore] = useState(true)
     const [page, setPage] = useState(1)
@@ -29,20 +29,17 @@ export const EpisodesPage = memo(() => {
             `https://rickandmortyapi.com/api/episode?page=${page}`
         );
         const data = await res.json();
-        debugger
         return data.results;
     }
 
     const fetchData = async () => {
         const episodesFromServer = await fetchEpisodes();
-        // debugger
         setItems([...items, ...episodesFromServer]);
         if (episodesFromServer.length === 0 || episodesFromServer.length < 20) {
             setHasMore(false)
         }
         setPage(page + 1)
     };
-    console.log(items)
 
     return (
         <Grid container justifyContent={"center"}>
@@ -54,7 +51,7 @@ export const EpisodesPage = memo(() => {
                     hasMore={hasMore}
                     loader={<LinearProgress/>}
                     endMessage={
-                        <p style={{}}>
+                        <p style={{textAlign: "center"}}>
                             <b>Yay! you have seen it all</b>
                         </p>
                     }

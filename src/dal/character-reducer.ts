@@ -67,7 +67,6 @@ export const fetchSingleCharacterTC = (id: number):ThunkAction<void, AppActionsT
             .then((res) => {
                 dispatch(setSingleCharacterAC(res.data))
                 const episodes_id = toGetIds(res.data.episode)
-                console.log('episodes_id: ', episodes_id)
                 dispatch(fetchMultipleEpisodesTC(episodes_id))
                 dispatch(setStatusAC('succeeded'))
             })

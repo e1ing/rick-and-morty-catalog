@@ -40,6 +40,8 @@ export const setEpisodesAC = (episodes: Array<EpisodeType>) => ({
 
 // thunk creators
 
+
+
 export const fetchMultipleEpisodesTC = (id: Array<number>) => {
     return (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
@@ -67,5 +69,6 @@ export const filterEpisodesTC = (search: string) => {
             })
     }
 }
+
 
 
