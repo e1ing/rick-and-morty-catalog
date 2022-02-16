@@ -82,8 +82,8 @@ type CharacterAPIType = {
 
 export const rickAndMortyApi = {
   // episodes
-  getEpisodes() {
-    return instance.get<GetEpisodeResponseType>(`episode`)
+  getEpisodes(page: number) {
+    return instance.get<GetEpisodeResponseType>(`episode?page=${page}`)
   },
   getSingleEpisode(id: number) {
     return instance.get<EpisodeAPIType>(`episode/${id}`)

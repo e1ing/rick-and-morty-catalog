@@ -13,20 +13,38 @@ export type EpisodeType = {
     created: string
 }
 
-const initialState: Array<EpisodeType> = []
+export type AllEpisodesType = {
+    info: {
+        count: number
+        pages: number
+        next: string
+        prev: string | null
+    }
+    episodes: Array<EpisodeType>
+}
 
-export type EpisodesActionsType =
+const initialState: AllEpisodesType = {
+    info: {
+        count: 51,
+        pages: 1,
+        next: "",
+        prev: null
+    },
+    episodes: []
+}
+
+export type AllEpisodesActionsType =
     | ReturnType<typeof setEpisodesAC>
     | SetErrorAT
     | SetStatusAT
 
-export const episodesReducer = (
-    state: Array<EpisodeType> = initialState,
-    action: EpisodesActionsType
-): Array<EpisodeType> => {
+export const allEpisodesReducer = (
+    state: AllEpisodesType = initialState,
+    action: AllEpisodesActionsType
+): AllEpisodesType => {
     switch (action.type) {
         case 'SET-EPISODES':
-            return [...action.episodes]
+            return {...state, episodes: action.episodes}
         default:
             return state
     }
@@ -37,27 +55,11 @@ export const setEpisodesAC = (episodes: Array<EpisodeType>) => ({
     type: 'SET-EPISODES', episodes
 } as const)
 
-
 // thunk creators
-
-export const fetchMultipleEpisodesTC = (id: Array<number>) => {
+export const fetchEpisodesTC = (page: number) => {
     return (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
-        rickAndMortyApi.getMultipleEpisodes(id)
-            .then((res) => {
-                dispatch(setEpisodesAC([...res.data]))
-                dispatch(setStatusAC('succeeded'))
-            })
-            .catch(error => {
-                dispatch(setErrorAC(error))
-            })
-    }
-}
-
-export const filterEpisodesTC = (search: string) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
-        dispatch(setStatusAC('loading'))
-        rickAndMortyApi.filterEpisodes(search)
+        rickAndMortyApi.getEpisodes(page)
             .then((res) => {
                 dispatch(setEpisodesAC(res.data.results))
                 dispatch(setStatusAC('succeeded'))
@@ -67,5 +69,8 @@ export const filterEpisodesTC = (search: string) => {
             })
     }
 }
+
+
+
 
 
